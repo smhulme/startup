@@ -1,8 +1,8 @@
-# Your startup name here
+# Red Sound
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+For my startup I am creating a simple quoting and booking service for an existing business that I run. I am going to 
 
 
 > [!NOTE]
@@ -18,15 +18,15 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [X] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
+- [ ] Proper use of Markdown
+- [X] A concise and compelling elevator pitch
+- [X] Description of key features
 - [ ] Description of how you will use each technology
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The last thing you want when planning your corporate event or worse, your wedding is unneeded stress and anxiety. When you're figuring out what you want in terms of your audio solution for your event every website that you look for is confusing and convoluted and worst of all you need to call someone or email them and wait for a response to even have an idea of how much its going to cost. Exhausting Right? Red Sound takes away all of those issues with a simple quoting and booking system where you build the package and options that you want. You understand the cost from the very beginning and you book your own date for your event. We take the stress out of your planning to allow you to focus on the more important things involved with your event. 
 
 ### Design
 
@@ -43,9 +43,11 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- A package builder for exactly what the client wants to rent for their event
+- A calendar system where the client can see unavailable dates and book the date for their event
+- The ability to log in and update booking until a certain point previous to event
+- Pay a deposit for the event
+- A detailed description of all the services that we offer
 
 ### Technologies
 
