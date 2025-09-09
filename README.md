@@ -30,7 +30,8 @@ The last thing you want when planning your corporate event or worse, your weddin
 
 ### Design
 
-![Design image](sketch1.png) (sketch2.png)
+![Design image](sketch1.png) 
+![Design image2](sketch2.png)
 
 
 ### Key features
