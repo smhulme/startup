@@ -18,11 +18,11 @@ For my startup I am creating a simple quoting and booking service for an existin
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
+- [X] Proper use of Markdown
 - [X] A concise and compelling elevator pitch
 - [X] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [X] Description of how you will use each technology
+- [X] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -32,7 +32,6 @@ The last thing you want when planning your corporate event or worse, your weddin
 
 ![Design image](sketch1.png) 
 ![Design image2](sketch2.png)
-
 
 ### Key features
 
