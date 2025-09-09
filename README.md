@@ -30,16 +30,8 @@ The last thing you want when planning your corporate event or worse, your weddin
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](sketch1.png) (sketch2.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
 
 ### Key features
 
@@ -53,12 +45,12 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - I will have HTML pages that display our offerings and the general look of the website. I want to have 3 HTML pages, the front page, the calendar page, and the contact info.
+- **CSS** - I will have the page with the different packages be interactive where you can build your own package of exactly what you want in your event. 
+- **React** - I will have a login, along with the ability to see what dates are already booked or unavailable on the calendar. I want it to be interactive and intuitive.
+- **Service** - Services will be used to track the dates that people book and exactly what they want, along with their contact information so that we can reach out to them.
+- **DB/Login** - Store the users, and make it secure so that other people can't go in and change a quote or date that someone else already set up 
+- **WebSocket** - When someone books a date, it goes public so that others can see that that date is filled.
 
 ## 🚀 AWS deliverable
 
