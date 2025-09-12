@@ -21,6 +21,7 @@ I need to continue practicing and learning how to use markdown format of writing
 
 ## Caddy
 
+I can make my domain and website secure by going into the caddy file and deleting the port80 and replacing it with my domain name
 
 ## HTML
 
