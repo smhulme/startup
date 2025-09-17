@@ -1,5 +1,6 @@
-h1, h2 {
-    color: rgb(154, 0, 0);
+h2 {
+    color: rgba(231, 37, 38);
+    text-align: center;
 }
 body {
     background-color: black;
