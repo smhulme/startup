@@ -62,15 +62,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [X] **HTML pages** - I have several HTML pages that display the different parts of the website including booking and package description for purchases. 
+- [x] **Proper HTML element usage** - I properly formatted the HTML to include the elements including div, nav, body, title, and more.
+- [x] **Links** - I linked the folders to eachother using the a command so that when certian items on the page are clicked, they link to other html folders that include the information for that page.
+- [x] **Text** - I have different text labeled under different sections so that in the future the text can be easily modified with css or bootstrap
+- [x] **3rd party API placeholder** - I put a placeholder for a calendar API to be included on the booking page.
+- [x] **Images** - I put in the image of the logo on every page as a clickable image that links back to the homepage
+- [x] **Login placeholder** - I have one specific folder that includes the proper formatting for login that will in the future upload to the database
+- [x] **DB data placeholder** - I have a placeholder on the booking page for the unavailable dates to show up for the people that have already booked an event
+- [x] **WebSocket placeholder** - I have the information entry on the booking page that will allow me to contact them through the website
 
 ## 🚀 CSS deliverable
 
