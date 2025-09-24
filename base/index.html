@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Red Sound</title>
+  <link rel="stylesheet" href="base.css">
+</head>
+<body>
+    <a href="../index.html" style="text-decoration: none; color: inherit;">
+        <img src="Logo2-1.png" alt="Red Sound" style="display:block; margin:auto; width:100px;">
+    </a>
+    <h1>Base Package</h1>
+    <div class="main-box" id="main-box">
+        <div class="item-row" id="item-row">
+            <div class="item-box">Two Speakers</div>
+            <div class="item-box">One Microphone</div>
+            <div class="item-box">Included Set-Up and Take-Down</div>
+        </div>
+    </div>
+    <h2>Add-ons</h2>
+    <div class="addon-pool" id="addon-pool">
+        <div class="addon-box" draggable="true" id="addon1">Extra Microphone $30</div>
+        <div class="addon-box" draggable="true" id="addon2">Lighting $50</div>
+        <div class="addon-box" draggable="true" id="addon3">DJ Services $100/hour</div>
+        <div class="addon-box" draggable="true" id="addon4">On-site Technician $200</div>
+        <div class="addon-box" draggable="true" id="addon5">Subwoofer $80/subwoofer</div>
+        <div class="addon-box" draggable="true" id="addon4">Speaker Upgrade $150/speaker</div>
+    </div>
+    <script>
+      // Drag and drop logic
+      const addonBoxes = document.querySelectorAll('.addon-box');
+      const mainBox = document.getElementById('main-box');
+      const itemRow = document.getElementById('item-row');
+
+      addonBoxes.forEach(box => {
+        box.addEventListener('dragstart', (e) => {
+          e.dataTransfer.setData('text/plain', box.id);
+        });
+      });
+
+      // Attach dragover and drop to mainBox instead of itemRow
+      mainBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+
+      mainBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const addonId = e.dataTransfer.getData('text/plain');
+        const addonBox = document.getElementById(addonId);
+        if (addonBox) {
+          itemRow.appendChild(addonBox);
+        }
+      });
+    </script>
+</body>
+</html>
