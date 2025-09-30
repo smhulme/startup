@@ -15,7 +15,7 @@ input {
     background-color: #282828;
     color: #fff;
     border: 1px solid #555;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 input:focus {
@@ -24,7 +24,8 @@ input:focus {
 }
 
 form label,
-form input {
+form input,
+form button {
     display: block;
     margin: 8px auto 4px auto;
     width: 250px;
@@ -34,5 +35,10 @@ input[type="send"], button {
     background-color: #282828;
     color: white;
     border: none;
-    border-radius: 5%;
+    border-radius: 8px;  /* <-- pixel value gives smooth curve */
 }
+
+button:hover {
+    background-color: #161616;
+}
+
