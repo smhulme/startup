@@ -1,0 +1,38 @@
+body {
+    background-color: rgb(0, 0, 0);
+}
+
+h2, h1 {
+    color: rgba(231, 37, 38);
+    text-align: center;
+}
+
+label {
+    color: rgba(231, 37, 38);
+}
+
+input {
+    background-color: #282828;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+input:focus {
+    outline: 2px solid rgba(231, 37, 38);
+    box-shadow: 0 0 5px rgba(231, 37, 38, 0.5);
+}
+
+form label,
+form input {
+    display: block;
+    margin: 8px auto 4px auto;
+    width: 250px;
+}
+
+input[type="send"], button {
+    background-color: #282828;
+    color: white;
+    border: none;
+    border-radius: 5%;
+}

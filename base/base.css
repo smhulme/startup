@@ -40,7 +40,6 @@ body {
     display: flex;
     gap: 12px;
     justify-content: center;
-    margin-top: 40px;
     flex-wrap: wrap;
 }
 

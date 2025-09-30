@@ -41,3 +41,11 @@ form input {
     margin: 8px auto 4px auto;
     width: 250px;
 }
+
+input[type="submit"], button {
+    background-color: #282828;
+    color: white;
+    border: none;
+    border-radius: 5%;
+    
+}
