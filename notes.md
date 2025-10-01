@@ -24,9 +24,11 @@ I need to continue practicing and learning how to use markdown format of writing
 I can make my domain and website secure by going into the caddy file and deleting the port80 and replacing it with my domain name
 
 ## HTML
-
+There organization is very important when applying css and bootstrap
 
 ## CSS
+Bootstrap can be incorporated as more of a background thought by implementing it first vs last compared to my css file
+
 
 
 ## React Part 1: Routing
