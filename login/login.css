@@ -47,4 +47,12 @@ input[type="submit"], button {
     color: white;
     border: none;
     border-radius: 8px;
+    margin-top: 20px;
+}
+
+footer {
+    color:  rgba(231, 37, 38);
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }

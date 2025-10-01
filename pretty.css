@@ -1,6 +1,5 @@
 body {
     background-color: rgb(0, 0, 0);
-    color: rgba(231, 37, 38);
     text-align: center;
 }
 .packages {
@@ -21,4 +20,8 @@ body {
 .package-box:hover {
     background-color: rgb(26, 26, 26); /* Change to your desired hover color */
     cursor: pointer;
+}
+
+.text-red {
+  color: rgba(231, 37, 38) !important;
 }

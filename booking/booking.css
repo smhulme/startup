@@ -3,12 +3,7 @@ body {
 }
 
 h2, h1 {
-    color: rgba(231, 37, 38);
     text-align: center;
-}
-
-label {
-    color: rgba(231, 37, 38);
 }
 
 input {
@@ -33,7 +28,7 @@ form button {
 
 input[type="send"], button {
     background-color: #282828;
-    color: white;
+    color: rgb(221, 221, 221);
     border: none;
     border-radius: 8px;  /* <-- pixel value gives smooth curve */
 }
@@ -42,3 +37,11 @@ button:hover {
     background-color: #161616;
 }
 
+footer {
+    color:  rgba(231, 37, 38);
+    text-align: center;
+}
+
+.text-red {
+    color: rgba(231, 37, 38) !important;
+}
