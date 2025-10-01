@@ -43,3 +43,16 @@ body {
     margin-top: 40px;
     flex-wrap: wrap;
 }
+
+nav a {
+  text-decoration: none;
+  background-color: #333;     
+  border-radius: 8px;          
+  padding: 10px 15px;          
+  display: inline-block;       
+  margin: 8px; 
+}
+nav a:hover {
+    background-color: rgba(231, 37, 38);
+    color: #333;
+}

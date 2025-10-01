@@ -8,13 +8,19 @@ h1, h2 {
     color: rgba(231, 37, 38);
 }
 
-.packages a{
+nav a {
     color:  rgba(231, 37, 38);
     text-decoration: none;
+    text-decoration: none;
+    background-color: #333;     
+    border-radius: 8px;          
+    padding: 10px 15px;          
+    display: inline-block;       
+    margin: 8px; 
 }
 
 .all-addons-box {
-    background: #222;
+    background: #4b4b4b;
     border-radius: 8px;
     padding: 20px;
     margin: 20px auto;
@@ -22,3 +28,7 @@ h1, h2 {
     text-align: center;
 }
 
+nav a:hover {
+    background-color: rgba(231, 37, 38);
+    color: #333;
+}

@@ -43,13 +43,25 @@ body {
     flex-wrap: wrap;
 }
 
-.packages a{
+.packages a {
     color:  rgba(231, 37, 38);
     text-decoration: none;
+    text-decoration: none;
+    background-color: #333;     
+    border-radius: 8px;          
+    padding: 10px 15px;          
+    display: inline-block;       
+    margin: 8px; 
 }
 
 footer {
     color:  rgba(231, 37, 38);
     text-align: center;
     margin-bottom: 20px;
+}
+
+
+nav a:hover {
+    background-color: rgba(231, 37, 38);
+    color: #333;
 }

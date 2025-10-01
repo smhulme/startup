@@ -13,15 +13,34 @@ body {
     background-color: rgb(53, 52, 52);
     border-radius: 15px;
     padding: 10px;
-    /* margin-bottom: 15px; */
     width: 50%;
+    margin-bottom: 25px;
 }
 
 .package-box:hover {
-    background-color: rgb(26, 26, 26); /* Change to your desired hover color */
+    background-color: rgb(26, 26, 26); 
     cursor: pointer;
 }
 
-.text-red {
-  color: rgba(231, 37, 38) !important;
+.package-box ul {
+  text-align: center; 
+  list-style-position: inside; 
 }
+
+.text-red {
+  color: rgba(231, 37, 38);
+}
+
+nav a {
+  text-decoration: none;
+  background-color: #333;     
+  border-radius: 8px;          
+  padding: 10px 15px;          
+  display: inline-block;       
+  margin: 8px; 
+}
+nav a:hover {
+    background-color: rgba(231, 37, 38);
+    color: #333;
+}
+
