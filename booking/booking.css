@@ -45,3 +45,15 @@ footer {
 .text-red {
     color: rgba(231, 37, 38) !important;
 }
+
+header, footer {
+    background: #000000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+main {
+    padding: 32px 0;
+}
+
