@@ -40,3 +40,39 @@ nav a:hover {
     color: #333;
 }
 
+/* Responsive styles for mobile */
+@media (max-width: 600px) {
+  .packages {
+    gap: 10px;
+  }
+
+  .package-box {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 16px;
+    font-size: 1em;
+  }
+
+  nav a {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    text-align: center;
+    font-size: 1em;
+    padding: 12px 0;
+  }
+
+  h1, h2, h3, h4 {
+    font-size: 1.2em;
+  }
+
+  body {
+    padding: 0 4px;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
