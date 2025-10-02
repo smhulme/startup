@@ -31,6 +31,8 @@ Bootstrap can be incorporated as more of a background thought by implementing it
 
 !important makes the element be priority over the default
 
+viewport meta must be added to html head to make mobile @media work in css
+
 ## React Part 1: Routing
 
 
