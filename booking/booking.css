@@ -34,7 +34,7 @@ input[type="send"], button {
 }
 
 button:hover {
-    background-color: #161616;
+    background-color: rgba(231, 37, 38);
 }
 
 footer {

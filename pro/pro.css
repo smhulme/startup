@@ -4,7 +4,7 @@ body {
     text-align: center;
 }
 
-h1, h2 {
+h1 {
     color: rgba(231, 37, 38);
 }
 
@@ -20,12 +20,13 @@ nav a {
 }
 
 .all-addons-box {
-    background: #4b4b4b;
+    background: #949494;
     border-radius: 8px;
     padding: 20px;
     margin: 20px auto;
     width: 50%;
     text-align: center;
+    color: #333
 }
 
 nav a:hover {

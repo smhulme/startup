@@ -10,7 +10,8 @@ body {
 }
 
 .package-box {
-    background-color: rgb(53, 52, 52);
+    background-color: #4a4a4a;
+    color: rgb(255, 255, 255);
     border-radius: 15px;
     padding: 10px;
     width: 50%;
@@ -20,11 +21,6 @@ body {
 .package-box:hover {
     background-color: rgb(26, 26, 26); 
     cursor: pointer;
-}
-
-.package-box ul {
-  text-align: center; 
-  list-style-position: inside; 
 }
 
 .text-red {

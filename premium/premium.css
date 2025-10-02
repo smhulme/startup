@@ -5,7 +5,7 @@ body {
 }
 
 .main-box {
-    background: #222;
+    background: #949494;
     border-radius: 16px;
     padding: 30px;
     margin: 30px auto 20px auto;
@@ -51,8 +51,14 @@ nav a {
   padding: 10px 15px;          
   display: inline-block;       
   margin: 8px; 
+  color: rgba(231, 37, 38);
 }
+
 nav a:hover {
     background-color: rgba(231, 37, 38);
     color: #333;
+}
+
+.bg-secondary {
+    background-color: #333 !important;
 }

@@ -29,7 +29,7 @@ There organization is very important when applying css and bootstrap
 ## CSS
 Bootstrap can be incorporated as more of a background thought by implementing it first vs last compared to my css file
 
-
+!important makes the element be priority over the default
 
 ## React Part 1: Routing
 

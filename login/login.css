@@ -50,6 +50,13 @@ input[type="submit"], button {
     margin-top: 20px;
 }
 
+input[type="submit"]:hover,
+button:hover {
+    background-color: rgba(231, 37, 38);
+    color: #fff;
+    cursor: pointer;
+}
+
 footer {
     color:  rgba(231, 37, 38);
     text-align: center;

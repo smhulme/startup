@@ -5,7 +5,7 @@ body {
 }
 
 .main-box {
-    background: #222;
+    background: #949494;
     border-radius: 16px;
     padding: 30px;
     margin: 30px auto 20px auto;
@@ -40,6 +40,7 @@ body {
     display: flex;
     gap: 12px;
     justify-content: center;
+    margin-top: 40px;
     flex-wrap: wrap;
 }
 
@@ -60,8 +61,25 @@ footer {
     margin-bottom: 20px;
 }
 
+nav a {
+    text-decoration: none;
+    background-color: #333;     
+    border-radius: 8px;          
+    padding: 10px 15px;          
+    display: inline-block;       
+    margin: 8px; 
+    color: rgba(231, 37, 38);
+}
 
 nav a:hover {
     background-color: rgba(231, 37, 38);
     color: #333;
+}
+
+.text-red {
+    color: rgba(231, 37, 38) !important;
+}
+
+.bg-secondary {
+    background-color: #333 !important;
 }
