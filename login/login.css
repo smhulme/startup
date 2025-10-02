@@ -63,3 +63,34 @@ footer {
     margin-bottom: 20px;
     margin-top: 20px;
 }
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 6px;
+    font-size: 1em;
+  }
+
+  .login-container {
+    padding: 12px 4px;
+    width: 100%;
+  }
+
+  form label,
+  form input {
+    width: 95vw;
+    max-width: 320px;
+    font-size: 1em;
+  }
+
+  input[type="submit"], button {
+    width: 95vw;
+    max-width: 320px;
+    font-size: 1em;
+    padding: 12px 0;
+  }
+
+  h2 {
+    font-size: 1.3em;
+    margin: 10px 0;
+  }
+}

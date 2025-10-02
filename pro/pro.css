@@ -44,3 +44,47 @@ header, footer {
 main {
   padding: 32px 0;
 }
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 4px;
+    font-size: 1em;
+  }
+
+  .all-addons-box {
+    width: 70%;
+    padding: 10px 4px;
+    margin: 10px auto;
+    font-size: 1em;
+  }
+
+  nav {
+    padding: 0;
+    margin-bottom: 12px;
+  }
+
+  nav a {
+    width: 90%;
+    margin: 7px 0;
+    text-align: center;
+    font-size: 1.1em;
+    padding: 14px 0;
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3, h4 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+
+  img {
+    max-width: 90vw;
+    height: auto;
+    margin: 0 auto 12px auto;
+    display: block;
+  }
+
+  main {
+    padding: 12px 0;
+  }
+}

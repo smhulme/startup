@@ -83,3 +83,65 @@ nav a:hover {
 .bg-secondary {
     background-color: #333 !important;
 }
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 4px;
+    font-size: 1em;
+  }
+
+  .main-box {
+    width: 70%;
+    padding: 12px 4px;
+    margin: 12px auto;
+  }
+
+  .item-row {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .item-box, .addon-box {
+    min-width: 0;
+    width: 90%;
+    box-sizing: border-box;
+    font-size: 1em;
+    padding: 12px 6px;
+    margin: 6px 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .addon-pool {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+    align-items: stretch;
+  }
+
+  nav {
+    margin-bottom: 12px;
+    padding: 0;
+  }
+
+  nav a {
+    width: 70%;
+    margin: 8px;
+    text-align: center;
+    font-size: 1.1em;
+    padding: 14px 0;
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3, h4 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+
+  img {
+    max-width: 90vw;
+    height: auto;
+    margin: 0 auto 12px auto;
+  }
+}
