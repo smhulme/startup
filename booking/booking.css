@@ -57,3 +57,45 @@ main {
     padding: 32px 0;
 }
 
+@media (max-width: 600px) {
+  body {
+    padding: 0 6px;
+    font-size: 1em;
+  }
+
+  main {
+    padding: 12px 0;
+  }
+
+  h1, h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+
+  form label,
+  form input,
+  form button {
+    width: 95vw;
+    max-width: 320px;
+    font-size: 1em;
+    margin: 10px auto;
+  }
+
+  input, button {
+    padding: 12px 8px;
+    font-size: 1em;
+  }
+
+  footer {
+    font-size: 1em;
+    padding: 12px 0;
+  }
+
+  img {
+    max-width: 90vw;
+    height: auto;
+    margin: 0 auto 12px auto;
+    display: block;
+  }
+}
+
