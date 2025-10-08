@@ -1,24 +1,63 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import './home.css';
 
 export default function Home() {
   return (
     <>
-      <header>
-        <a href="/">
-          <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
-        </a>
+      <header className="bg-black text-red py-3 text-center">
+        <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{ maxWidth: "150px" }} />
         <nav className="text-center">
-          <a href="/premium" className="text-red mx-2 text-decoration-none">Premium</a>
-          <a href="/pro" className="text-red mx-2 text-decoration-none">Pro</a>
-          <a href="/" className="text-red mx-2 text-decoration-none">Home</a>
+          <NavLink to="/base" className="text-red mx-2">Base</NavLink>
+          <NavLink to="/premium" className="text-red mx-2">Premium</NavLink>
+          <NavLink to="/pro" className="text-red mx-2">Pro</NavLink>
         </nav>
       </header>
-      <main className="bg-dark text-red text-center py-4">
-        <h1>Welcome to Red Sound</h1>
+      <main className="bg-dark text-red text-center">
+        <a href="https://github.com/smhulme/startup.git" target="_blank" rel="noopener noreferrer">
+          https://github.com/smhulme/startup.git
+        </a>
+        <h2>Professional Audio Solutions for All Events</h2>
         <p>
-          Professional Audio Solutions for All Events.<br />
           From intimate gatherings like weddings and parties to large events including concerts and festivals, we have you covered.
         </p>
+        <div className="packages">
+          <div className="package-box">
+            <NavLink to="/base" className="text-decoration-none" style={{ color: "inherit" }}>
+              <h3>Base</h3>
+              <div>
+                Two Speakers<br />
+                One Microphone<br />
+                Included Set-Up and Take-Down
+              </div>
+              <h4>Bang For Your Buck</h4>
+              <h3>$399</h3>
+            </NavLink>
+          </div>
+          <div className="package-box">
+            <NavLink to="/premium" className="text-decoration-none" style={{ color: "inherit" }}>
+              <h3>Premium</h3>
+              <div>
+                Two Premium Speakers<br />
+                Two Subwoofers<br />
+                Two Microphones
+              </div>
+              <h4>Take your small event to the next level</h4>
+              <h3>$899</h3>
+            </NavLink>
+          </div>
+          <div className="package-box">
+            <NavLink to="/pro" className="text-decoration-none" style={{ color: "inherit" }}>
+              <h3>Pro</h3>
+              <div>
+                Custom Tailored Setup<br />
+                All Ad-Ons Included
+              </div>
+              <h4>Suitable for Small Concerts</h4>
+              <h3>$1999</h3>
+            </NavLink>
+          </div>
+        </div>
       </main>
       <footer className="bg-black text-red py-3 text-center">
         © 2025 Red Sound. All rights reserved.

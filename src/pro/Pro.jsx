@@ -3,7 +3,7 @@ import React from 'react';
 export default function Pro() {
   return (
     <>
-      <header>
+      <header className="bg-black">
         <a href="/">
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
         </a>

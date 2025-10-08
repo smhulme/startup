@@ -4,7 +4,7 @@ import '../app.css'; // or import './base.css' if you want page-specific styles
 export default function Base() {
   return (
     <>
-      <header>
+      <header className="bg-black">
         <a href="/">
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
         </a>

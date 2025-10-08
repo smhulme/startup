@@ -1,9 +1,10 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Login() {
   return (
     <>
-      <header>
+      <header className="bg-black">
         <a href="/">
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
         </a>
@@ -24,7 +25,9 @@ export default function Login() {
             <label htmlFor="password" className="form-label text-light">Password</label>
             <input type="password" className="form-control" id="password" name="password" />
           </div>
-          <button type="submit" className="btn btn-danger w-100">Login</button>
+          <NavLink to="/booking" className="btn btn-danger w-100">
+            Login
+          </NavLink>
         </form>
       </main>
       <footer className="bg-black text-red py-3 text-center">
