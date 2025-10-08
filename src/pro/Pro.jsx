@@ -1,16 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Pro() {
   return (
     <>
       <header className="bg-black">
-        <a href="/">
+        <NavLink to="/">
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
-        </a>
+        </NavLink>
         <nav className="text-center">
-          <a href="/base" className="text-red mx-2 text-decoration-none">Base</a>
-          <a href="/premium" className="text-red mx-2 text-decoration-none">Premium</a>
-          <a href="/" className="text-red mx-2 text-decoration-none">Home</a>
+          <NavLink to="/base" className="text-red mx-2 text-decoration-none">Base</NavLink>
+          <NavLink to="/premium" className="text-red mx-2 text-decoration-none">Premium</NavLink>
+          <NavLink to="/" className="text-red mx-2 text-decoration-none">Home</NavLink>
         </nav>
       </header>
       <main className="bg-dark text-red text-center py-4">
@@ -23,9 +24,9 @@ export default function Pro() {
         </div>
         <h2 id="total-price" className="mt-3">$1999</h2>
         <div className="purchase-box my-4">
-          <a href="/login" className="text-decoration-none" style={{color: "inherit"}}>
+          <NavLink to="/login" className="text-decoration-none" style={{color: "inherit"}}>
             <h4 className="bg-danger text-white rounded px-4 py-2 d-inline-block">Purchase</h4>
-          </a>
+          </NavLink>
         </div>
       </main>
       <footer className="bg-black text-red py-3 text-center">

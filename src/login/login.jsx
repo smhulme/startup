@@ -5,13 +5,13 @@ export default function Login() {
   return (
     <>
       <header className="bg-black">
-        <a href="/">
+        <NavLink to="/">
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
-        </a>
+        </NavLink>
         <nav className="text-center">
-          <a href="/premium" className="text-red mx-2 text-decoration-none">Premium</a>
-          <a href="/pro" className="text-red mx-2 text-decoration-none">Pro</a>
-          <a href="/" className="text-red mx-2 text-decoration-none">Home</a>
+          <NavLink to="/premium" className="text-red mx-2 text-decoration-none">Premium</NavLink>
+          <NavLink to="/pro" className="text-red mx-2 text-decoration-none">Pro</NavLink>
+          <NavLink to="/" className="text-red mx-2 text-decoration-none">Home</NavLink>
         </nav>
       </header>
       <main className="bg-dark text-red text-center py-4">
