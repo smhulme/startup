@@ -34,7 +34,7 @@ Bootstrap can be incorporated as more of a background thought by implementing it
 viewport meta must be added to html head to make mobile @media work in css
 
 ## React Part 1: Routing
-
+It takes some effort to switch all a links to navlink to allow for react routing. Ai is quite good at doing it
 
 ## React Part 2: Reactivity
-
+APIs are easy to implement

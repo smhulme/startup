@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './booking.css';
 
 export default function Booking() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <>
       <header className="bg-black">
@@ -17,7 +27,12 @@ export default function Booking() {
       </header>
       <main className="bg-dark text-red py-4 text-center">
         <h1>Booking</h1>
-        <h2>PlaceHolder 3rd Party Calendar API</h2>
+        {/* Calendly inline widget */}
+        <div
+          className="calendly-inline-widget"
+          data-url="https://calendly.com/smhulme101/new-meeting?hide_event_type_details=1&background_color=000000&text_color=949494&primary_color=e72526"
+          style={{ minWidth: "320px", height: "700px" }}
+        ></div>
         <h2>DataSocket placeholder showing which dates are taken</h2>
         <form className="booking-form mx-auto" style={{ maxWidth: "400px" }}>
           <div className="mb-3">
