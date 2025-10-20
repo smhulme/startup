@@ -1,17 +1,47 @@
-import React from 'react';
-import '../app.css'; // or import './base.css' if you want page-specific styles
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import '../app.css';
+
+const ADDONS = [
+  { id: 'addon1', name: 'Extra Microphone', price: 35, max: 4 },
+  { id: 'addon2', name: 'Lighting', price: 50, max: 2 },
+  { id: 'addon3', name: 'DJ Services (per hour)', price: 100, max: 8 },
+  { id: 'addon4', name: 'On-site Technician', price: 200, max: 1 },
+  { id: 'addon5', name: 'Subwoofer', price: 100, max: 2 },
+  { id: 'addon6', name: 'Speaker Upgrade', price: 150, max: 2 },
+];
+
+const BASE_PRICE = 399;
 
 export default function Base() {
+  const [counts, setCounts] = useState(Array(ADDONS.length).fill(0));
+
+  const handleChange = (idx, delta) => {
+    setCounts(counts =>
+      counts.map((count, i) =>
+        i === idx
+          ? Math.max(0, Math.min(ADDONS[idx].max, count + delta))
+          : count
+      )
+    );
+  };
+
+  const addonsTotal = counts.reduce(
+    (sum, count, idx) => sum + count * ADDONS[idx].price,
+    0
+  );
+  const totalPrice = BASE_PRICE + addonsTotal;
+
   return (
     <>
       <header className="bg-black">
-        <a href="/">
-          <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
-        </a>
+        <NavLink to="/">
+          <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{ maxWidth: "150px" }} />
+        </NavLink>
         <nav className="text-center">
-          <a href="/premium" className="text-red mx-2 text-decoration-none">Premium</a>
-          <a href="/pro" className="text-red mx-2 text-decoration-none">Pro</a>
-          <a href="/" className="text-red mx-2 text-decoration-none">Home</a>
+          <NavLink to="/premium" className="text-red mx-2 text-decoration-none">Premium</NavLink>
+          <NavLink to="/pro" className="text-red mx-2 text-decoration-none">Pro</NavLink>
+          <NavLink to="/" className="text-red mx-2 text-decoration-none">Home</NavLink>
         </nav>
       </header>
       <main className="bg-dark text-red text-center py-4">
@@ -25,18 +55,32 @@ export default function Base() {
         </div>
         <h2>Add-ons</h2>
         <div className="addon-pool mb-4" id="addon-pool">
-          <div className="addon-box text-white bg-secondary rounded mb-2 px-3 py-2 d-inline-block" draggable="true" id="addon1">Extra Microphone $30</div>
-          <div className="addon-box text-white bg-secondary rounded mb-2 px-3 py-2 d-inline-block" draggable="true" id="addon2">Lighting $50</div>
-          <div className="addon-box text-white bg-secondary rounded mb-2 px-3 py-2 d-inline-block" draggable="true" id="addon3">DJ Services $100/hour</div>
-          <div className="addon-box text-white bg-secondary rounded mb-2 px-3 py-2 d-inline-block" draggable="true" id="addon4">On-site Technician $200</div>
-          <div className="addon-box text-white bg-secondary rounded mb-2 px-3 py-2 d-inline-block" draggable="true" id="addon5">Subwoofer $80/subwoofer</div>
-          <div className="addon-box text-white bg-secondary rounded mb-2 px-3 py-2 d-inline-block" draggable="true" id="addon6">Speaker Upgrade $150/speaker</div>
+          {ADDONS.map((addon, idx) => (
+            <div key={addon.id} className="addon-box text-white bg-secondary rounded mb-2 px-3 py-2 d-inline-block">
+              <span>{addon.name} ${addon.price}</span>
+              <div className="d-flex align-items-center justify-content-center mt-2">
+                <button
+                  className="btn btn-sm btn-dark mx-1"
+                  onClick={() => handleChange(idx, -1)}
+                  disabled={counts[idx] === 0}
+                  type="button"
+                >-</button>
+                <span className="mx-2">{counts[idx]}</span>
+                <button
+                  className="btn btn-sm btn-dark mx-1"
+                  onClick={() => handleChange(idx, 1)}
+                  disabled={counts[idx] === addon.max}
+                  type="button"
+                >+</button>
+              </div>
+            </div>
+          ))}
         </div>
-        <h2 id="total-price" className="mt-3">$399</h2>
+        <h2 id="total-price" className="mt-3">${totalPrice}</h2>
         <div className="purchase-box my-4">
-          <a href="/login" className="text-decoration-none" style={{color: "inherit"}}>
+          <NavLink to="/login" className="text-decoration-none" style={{ color: "inherit" }}>
             <h4 className="bg-danger text-white rounded px-4 py-2 d-inline-block">Purchase</h4>
-          </a>
+          </NavLink>
         </div>
       </main>
       <footer className="bg-black text-red py-3 text-center">

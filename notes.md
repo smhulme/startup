@@ -37,4 +37,4 @@ viewport meta must be added to html head to make mobile @media work in css
 It takes some effort to switch all a links to navlink to allow for react routing. Ai is quite good at doing it
 
 ## React Part 2: Reactivity
-APIs are easy to implement
+APIs are easy to implement, but hard to create. All I need to do is include the link to it in the javascript.
