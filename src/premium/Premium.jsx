@@ -6,11 +6,11 @@ import './premium.css';
 
 const ADDONS = [
   { id: 'addon1', name: 'Extra Microphone', price: 30, max: 4 },
-  { id: 'addon2', name: 'Lighting', price: 50, max: 2 },
+  { id: 'addon2', name: 'Party Light Bar', price: 50, max: 8 },
   { id: 'addon3', name: 'DJ Services (per hour)', price: 100, max: 8 },
   { id: 'addon4', name: 'On-site Technician', price: 200, max: 1 },
   { id: 'addon5', name: 'Concert Mic Setup (per performer)', price: 80, max: 8 },
-  { id: 'addon6', name: 'Fog Machine', price: 50, max: 2 },
+  { id: 'addon6', name: 'Fog Machine', price: 50, max: 1 },
   { id: 'addon7', name: 'Concert Audio Mixer', price: 150, max: 1 },
 ];
 
