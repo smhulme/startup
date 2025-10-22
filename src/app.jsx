@@ -9,27 +9,35 @@ import Login from './login/login.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
+// --- NEW ---
+// Import the provider
+import { PackageProvider } from './context/PackageContext';
+
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="body bg-dark text-light">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/base" element={<Base />} />
-          <Route path="/premium" element={<Premium />} />
-          <Route path="/pro" element={<Pro />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-        <footer className="bg-dark text-white-50">
-          <div className="container-fluid">
-            <span className="text-reset">Shawn Hulme </span>
-            <a className="text-reset" href="https://github.com/smhulme/startup.git">
-               Source
-            </a>
-          </div>
-        </footer>
-      </div>
-    </BrowserRouter>
+    // --- MODIFIED ---
+    // Wrap the app in the provider
+    <PackageProvider>
+      <BrowserRouter>
+        <div className="body bg-dark text-light">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/base" element={<Base />} />
+            <Route path="/premium" element={<Premium />} />
+            <Route path="/pro" element={<Pro />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+          <footer className="bg-dark text-white-50">
+            <div className="container-fluid">
+              <span className="text-reset">Shawn Hulme </span>
+              <a className="text-reset" href="https://github.com/smhulme/startup.git">
+                 Source
+              </a>
+            </div>
+          </footer>
+        </div>
+      </BrowserRouter>
+    </PackageProvider>
   );
 }

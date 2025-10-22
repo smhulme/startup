@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+// --- MODIFIED ---
+import { NavLink, useNavigate } from 'react-router-dom';
+import { usePackage } from '../context/PackageContext'; // Import the hook
 import './premium.css';
 
-// Add-ons for Premium package
 const ADDONS = [
   { id: 'addon1', name: 'Extra Microphone', price: 30, max: 4 },
   { id: 'addon2', name: 'Lighting', price: 50, max: 2 },
@@ -16,10 +17,12 @@ const ADDONS = [
 const PREMIUM_PRICE = 899;
 
 export default function Premium() {
-  // Track count for each add-on
   const [counts, setCounts] = useState(Array(ADDONS.length).fill(0));
 
-  // Handle plus/minus clicks, clamp between 0 and max
+  // --- NEW LOGIC ---
+  const navigate = useNavigate();
+  const { setPackageSpec } = usePackage(); 
+
   const handleChange = (idx, delta) => {
     setCounts(counts =>
       counts.map((count, i) =>
@@ -30,16 +33,34 @@ export default function Premium() {
     );
   };
 
-  // Calculate total add-on price
   const addonsTotal = counts.reduce(
     (sum, count, idx) => sum + count * ADDONS[idx].price,
     0
   );
-  // Calculate overall price
   const totalPrice = PREMIUM_PRICE + addonsTotal;
+
+  // --- NEW LOGIC ---
+  const handlePurchase = () => {
+    const selectedAddons = ADDONS.map((addon, idx) => ({
+      name: addon.name,
+      quantity: counts[idx],
+      price: addon.price * counts[idx],
+    })).filter(addon => addon.quantity > 0);
+
+    const spec = {
+      packageName: 'Premium Package',
+      basePrice: PREMIUM_PRICE,
+      addons: selectedAddons,
+      totalPrice: totalPrice,
+    };
+
+    setPackageSpec(spec);
+    navigate('/login');
+  };
 
   return (
     <>
+      {/* --- RESTORED HEADER --- */}
       <header className="bg-black">
         <NavLink to="/">
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
@@ -50,6 +71,8 @@ export default function Premium() {
           <NavLink to="/" className="text-red mx-2 text-decoration-none">Home</NavLink>
         </nav>
       </header>
+
+      {/* --- RESTORED MAIN CONTENT --- */}
       <main className="bg-dark text-red text-center py-4">
         <h1>Premium Package</h1>
         <div className="main-box" id="main-box">
@@ -83,12 +106,20 @@ export default function Premium() {
           ))}
         </div>
         <h2 id="total-price" className="mt-3">${totalPrice}</h2>
+
+        {/* --- MODIFIED PURCHASE BUTTON --- */}
         <div className="purchase-box my-4">
-          <NavLink to="/login" className="text-decoration-none" style={{color: "inherit"}}>
-            <h4 className="bg-danger text-white rounded px-4 py-2 d-inline-block">Purchase</h4>
-          </NavLink>
+          <button
+            className="btn btn-danger btn-lg"
+            onClick={handlePurchase}
+            type="button"
+          >
+            <h4 style={{ margin: 0, padding: '0 10px' }}>Purchase</h4>
+          </button>
         </div>
       </main>
+
+      {/* --- RESTORED FOOTER --- */}
       <footer className="bg-black text-red py-3 text-center">
         © 2025 Red Sound. All rights reserved.
       </footer>

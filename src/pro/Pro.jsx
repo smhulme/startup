@@ -1,9 +1,34 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+// --- MODIFIED ---
+import { NavLink, useNavigate } from 'react-router-dom';
+import { usePackage } from '../context/PackageContext'; // Import the hook
+
+const PRO_PRICE = 1999;
 
 export default function Pro() {
+  // --- NEW LOGIC ---
+  const navigate = useNavigate();
+  const { setPackageSpec } = usePackage(); 
+
+  // --- NEW LOGIC ---
+  const handlePurchase = () => {
+    const spec = {
+      packageName: 'Pro Package',
+      basePrice: PRO_PRICE,
+      addons: [
+        { name: 'Custom Tailored Setup', quantity: 1, price: 0 },
+        { name: 'All Ad-Ons Included', quantity: 1, price: 0 }
+      ],
+      totalPrice: PRO_PRICE,
+    };
+
+    setPackageSpec(spec);
+    navigate('/login');
+  };
+
   return (
     <>
+      {/* --- RESTORED HEADER --- */}
       <header className="bg-black">
         <NavLink to="/">
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
@@ -14,6 +39,8 @@ export default function Pro() {
           <NavLink to="/" className="text-red mx-2 text-decoration-none">Home</NavLink>
         </nav>
       </header>
+
+      {/* --- RESTORED MAIN CONTENT --- */}
       <main className="bg-dark text-red text-center py-4">
         <h1>Pro Package</h1>
         <div className="main-box" id="main-box">
@@ -22,13 +49,21 @@ export default function Pro() {
             <div className="item-box">All Ad-Ons Included</div>
           </div>
         </div>
-        <h2 id="total-price" className="mt-3">$1999</h2>
+        <h2 id="total-price" className="mt-3">${PRO_PRICE}</h2>
+
+        {/* --- MODIFIED PURCHASE BUTTON --- */}
         <div className="purchase-box my-4">
-          <NavLink to="/login" className="text-decoration-none" style={{color: "inherit"}}>
-            <h4 className="bg-danger text-white rounded px-4 py-2 d-inline-block">Purchase</h4>
-          </NavLink>
+          <button
+            className="btn btn-danger btn-lg"
+            onClick={handlePurchase}
+            type="button"
+          >
+            <h4 style={{ margin: 0, padding: '0 10px' }}>Purchase</h4>
+          </button>
         </div>
       </main>
+
+      {/* --- RESTORED FOOTER --- */}
       <footer className="bg-black text-red py-3 text-center">
         © 2025 Red Sound. All rights reserved.
       </footer>

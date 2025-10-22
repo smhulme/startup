@@ -1,9 +1,58 @@
 import React, { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './booking.css';
+// --- NEW ---
+import { usePackage } from '../context/PackageContext'; // Import the hook
+
+// --- NEW ---
+// A helper component to render the package receipt dynamically
+const PackageReceipt = () => {
+  const { packageSpec } = usePackage(); // Get the package data from context
+
+  // If no package was selected
+  if (!packageSpec) {
+    return (
+      <div className="bg-secondary text-white rounded p-3 mx-auto mb-4" style={{ maxWidth: "500px" }}>
+        <h3 className="text-center mb-3">Your Selected Package</h3>
+        <p>No package selected. Please go back and choose a package.</p>
+      </div>
+    );
+  }
+
+  // If a package IS selected, render its details
+  return (
+    <div className="bg-secondary text-white rounded p-3 mx-auto mb-4" style={{ maxWidth: "500px" }}>
+      <h3 className="text-center mb-3">Your Selected Package</h3>
+      <div className="text-start">
+        <div className="d-flex justify-content-between mb-2">
+          <span>{packageSpec.packageName}</span>
+          <span>${packageSpec.basePrice.toFixed(2)}</span>
+        </div>
+        <hr className="my-2" />
+        {packageSpec.addons && packageSpec.addons.length > 0 && (
+          <>
+            <div className="small text-muted mb-2">Add-ons:</div>
+            {packageSpec.addons.map(addon => (
+              <div key={addon.name} className="d-flex justify-content-between mb-1">
+                <span>• {addon.name} (x{addon.quantity})</span>
+                <span>${addon.price.toFixed(2)}</span>
+              </div>
+            ))}
+            <hr className="my-2" />
+          </>
+        )}
+        <div className="d-flex justify-content-between fw-bold">
+          <span>Total:</span>
+          <span>${packageSpec.totalPrice.toFixed(2)}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function Booking() {
   useEffect(() => {
+    // --- RESTORED ---
     if (!window.Calendly) {
       const script = document.createElement('script');
       script.src = "https://assets.calendly.com/assets/external/widget.js";
@@ -19,6 +68,7 @@ export default function Booking() {
 
   return (
     <>
+      {/* --- RESTORED HEADER --- */}
       <header className="bg-black position-relative">
         <NavLink to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{ maxWidth: "150px" }} />
@@ -37,6 +87,8 @@ export default function Booking() {
           <NavLink to="/" className="text-red mx-2 text-decoration-none">Home</NavLink>
         </nav>
       </header>
+
+      {/* --- RESTORED MAIN CONTENT --- */}
       <main className="bg-dark text-red py-4 text-center">
         <h1>Booking</h1>
         {/* Calendly inline widget */}
@@ -46,36 +98,11 @@ export default function Booking() {
           style={{ minWidth: "320px", height: "700px" }}
         ></div>
         
-        {/* Package Receipt Example */}
-        <div className="bg-secondary text-white rounded p-3 mx-auto mb-4" style={{ maxWidth: "500px" }}>
-          <h3 className="text-center mb-3">Database Call with Your Selected Package Example</h3>
-          <div className="text-start">
-            <div className="d-flex justify-content-between mb-2">
-              <span>Premium Package</span>
-              <span>$899.00</span>
-            </div>
-            <hr className="my-2" />
-            <div className="small text-muted mb-2">Add-ons:</div>
-            <div className="d-flex justify-content-between mb-1">
-              <span>• Extra Microphone (x2)</span>
-              <span>$60.00</span>
-            </div>
-            <div className="d-flex justify-content-between mb-1">
-              <span>• Lighting (x1)</span>
-              <span>$50.00</span>
-            </div>
-            <div className="d-flex justify-content-between mb-1">
-              <span>• DJ Services - 3 hours</span>
-              <span>$300.00</span>
-            </div>
-            <hr className="my-2" />
-            <div className="d-flex justify-content-between fw-bold">
-              <span>Total:</span>
-              <span>$1,309.00</span>
-            </div>
-          </div>
-        </div>
-
+        {/* --- MODIFIED --- */}
+        {/* Replaced hard-coded receipt with our new dynamic component */}
+        <PackageReceipt />
+        
+        {/* --- RESTORED FORM --- */}
         <form className="booking-form mx-auto" style={{ maxWidth: "400px" }}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label text-light">Name:</label>
@@ -102,6 +129,8 @@ export default function Booking() {
           </button>
         </form>
       </main>
+
+      {/* --- RESTORED FOOTER --- */}
       <footer className="bg-black text-red py-3 text-center">
         © 2025 Red Sound. All rights reserved.
       </footer>
