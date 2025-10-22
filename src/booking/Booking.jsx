@@ -45,7 +45,37 @@ export default function Booking() {
           data-url="https://calendly.com/smhulme101/new-meeting?hide_event_type_details=1&background_color=000000&text_color=949494&primary_color=e72526"
           style={{ minWidth: "320px", height: "700px" }}
         ></div>
-        <h2>DataSocket placeholder showing which dates are taken</h2>
+        
+        {/* Package Receipt Example */}
+        <div className="bg-secondary text-white rounded p-3 mx-auto mb-4" style={{ maxWidth: "500px" }}>
+          <h3 className="text-center mb-3">Database Call with Your Selected Package Example</h3>
+          <div className="text-start">
+            <div className="d-flex justify-content-between mb-2">
+              <span>Premium Package</span>
+              <span>$899.00</span>
+            </div>
+            <hr className="my-2" />
+            <div className="small text-muted mb-2">Add-ons:</div>
+            <div className="d-flex justify-content-between mb-1">
+              <span>• Extra Microphone (x2)</span>
+              <span>$60.00</span>
+            </div>
+            <div className="d-flex justify-content-between mb-1">
+              <span>• Lighting (x1)</span>
+              <span>$50.00</span>
+            </div>
+            <div className="d-flex justify-content-between mb-1">
+              <span>• DJ Services - 3 hours</span>
+              <span>$300.00</span>
+            </div>
+            <hr className="my-2" />
+            <div className="d-flex justify-content-between fw-bold">
+              <span>Total:</span>
+              <span>$1,309.00</span>
+            </div>
+          </div>
+        </div>
+
         <form className="booking-form mx-auto" style={{ maxWidth: "400px" }}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label text-light">Name:</label>
@@ -68,7 +98,7 @@ export default function Booking() {
             <input type="text" className="form-control" id="comments" name="comments" />
           </div>
           <button type="submit" className="btn btn-danger w-100">
-            Contact Placeholder for Websocket communication
+            PlaceHolder for Package submission with websocket
           </button>
         </form>
       </main>
