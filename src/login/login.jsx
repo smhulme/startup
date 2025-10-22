@@ -1,9 +1,7 @@
 import React from 'react';
-// --- NEW ---
 import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  // --- NEW ---
   const navigate = useNavigate();
 
   // This "mock" function just navigates to booking
@@ -15,13 +13,21 @@ export default function Login() {
 
   return (
     <>
+      {/* --- RESTORED HEADER --- */}
       <header className="bg-black">
-        {/* ... header nav ... */}
+        <NavLink to="/">
+          <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
+        </NavLink>
+        <nav className="text-center">
+          <NavLink to="/premium" className="text-red mx-2 text-decoration-none">Premium</NavLink>
+          <NavLink to="/pro" className="text-red mx-2 text-decoration-none">Pro</NavLink>
+          <NavLink to="/" className="text-red mx-2 text-decoration-none">Home</NavLink>
+        </nav>
       </header>
+
+      {/* --- MAIN CONTENT --- */}
       <main className="bg-dark text-red text-center py-4">
         <h1>Login</h1>
-        {/* --- MODIFIED --- */}
-        {/* Changed to a real form with an onSubmit handler */}
         <form className="login-form mx-auto" style={{maxWidth: "400px"}} onSubmit={handleMockLogin}>
           <div className="mb-3">
             <label htmlFor="username" className="form-label text-light">Username</label>
@@ -31,12 +37,13 @@ export default function Login() {
             <label htmlFor="password" className="form-label text-light">Password</label>
             <input type="password" className="form-control" id="password" name="password" placeholder="Enter any password" />
           </div>
-          {/* This is now a real submit button */}
           <button type="submit" className="btn btn-danger w-100">
             Login
           </button>
         </form>
       </main>
+
+      {/* --- FOOTER --- */}
       <footer className="bg-black text-red py-3 text-center">
         © 2025 Red Sound. All rights reserved.
       </footer>
