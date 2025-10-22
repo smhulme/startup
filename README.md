@@ -95,8 +95,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I added functionality for adding add ons to the package and added a context file to carry those add ons over to the booking page.
+- [x] **Hooks** - I used useEffect hooks to keep add ons constant even when the page is refreshed and to incorporate the calendly api widget. I used useState hooks to manage the state of user selections for add-ons in the package building stage of the website.
 
 ## 🚀 Service deliverable
 
