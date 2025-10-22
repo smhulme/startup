@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './booking.css';
 
 export default function Booking() {
@@ -13,12 +13,22 @@ export default function Booking() {
     };
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <header className="bg-black">
+      <header className="bg-black position-relative">
         <NavLink to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{ maxWidth: "150px" }} />
         </NavLink>
+        {/* Logout button in top right */}
+        <button
+          className="text-red mx-2 text-decoration-none logout-btn"
+          style={{ top: 20, right: 20, position: "absolute" }}
+          onClick={() => navigate('/')}
+        >
+          Logout
+        </button>
         <nav className="text-center">
           <NavLink to="/premium" className="text-red mx-2 text-decoration-none">Premium</NavLink>
           <NavLink to="/pro" className="text-red mx-2 text-decoration-none">Pro</NavLink>
