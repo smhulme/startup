@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './booking.css';
-// --- NEW ---
 import { usePackage } from '../context/PackageContext'; // Import the hook
 
-// --- NEW ---
 // A helper component to render the package receipt dynamically
 const PackageReceipt = () => {
   const { packageSpec } = usePackage(); // Get the package data from context
@@ -51,6 +49,10 @@ const PackageReceipt = () => {
 };
 
 export default function Booking() {
+  const navigate = useNavigate();
+  // Clear the package context when we leave the booking 
+  const { setPackageSpec } = usePackage(); 
+
   useEffect(() => {
     // --- RESTORED ---
     if (!window.Calendly) {
@@ -63,8 +65,34 @@ export default function Booking() {
       };
     }
   }, []);
+  
+  // New Logout Function
+  async function handleLogout() {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'DELETE', // Logout typically uses a DELETE request
+      });
 
-  const navigate = useNavigate();
+      if (response.ok) {
+        console.log('Logout successful.');
+        setPackageSpec(null); // Clear any pending package details
+        navigate('/'); // Navigate to the home page (or login page)
+      } else {
+        const errorText = await response.text();
+        console.error('Logout failed on server:', errorText);
+        // Even if the server returns an error (e.g., token expired), 
+        // we usually log the user out on the client side for safety.
+        setPackageSpec(null);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Network error during logout:', error);
+      // In case of network error, clear client state and navigate anyway
+      setPackageSpec(null); 
+      navigate('/'); 
+    }
+  }
+
 
   return (
     <>
@@ -73,11 +101,11 @@ export default function Booking() {
         <NavLink to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{ maxWidth: "150px" }} />
         </NavLink>
-        {/* Logout button in top right */}
+        {/* Logout button in top right, now using the handleLogout function */}
         <button
           className="text-red mx-2 text-decoration-none logout-btn"
           style={{ top: 20, right: 20, position: "absolute" }}
-          onClick={() => navigate('/')}
+          onClick={handleLogout} // MODIFIED
         >
           Logout
         </button>
@@ -98,8 +126,7 @@ export default function Booking() {
           style={{ minWidth: "320px", height: "700px" }}
         ></div>
         
-        {/* --- MODIFIED --- */}
-        {/* Replaced hard-coded receipt with our new dynamic component */}
+        {/* Package Receipt */}
         <PackageReceipt />
         
         {/* --- RESTORED FORM --- */}

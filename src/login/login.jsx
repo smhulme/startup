@@ -1,14 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  // This "mock" function just navigates to booking
-  const handleMockLogin = (e) => {
-    e.preventDefault(); // Stop the form from refreshing the page
-    console.log('Mock login successful!');
-    navigate('/booking'); // Go to the booking page
+  async function handleAuth(method) {
+    // Basic validation
+    if (!username || !password) {
+      alert('Please enter both a username and a password.');
+      return;
+    }
+
+    const endpoint = '/api/auth/' + (method === 'POST' ? 'create' : 'login');
+    const action = method === 'POST' ? 'Registration' : 'Login';
+    const successMessage = method === 'POST'
+        ? `Welcome, ${username}! You are now registered and logged in.`
+        : 'Login successful!';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST', // The instructions use POST for both create and login
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        console.log(successMessage);
+        alert(successMessage);
+        navigate('/booking'); 
+      } else {
+        const errorText = await response.text();
+        console.error(`${action} failed:`, errorText);
+        let userAlert = `${action} failed.`;
+        if (method === 'POST') {
+            userAlert += ' Username may already be taken or password invalid.';
+        } else {
+            userAlert += ' Please check your username and password.';
+        }
+        alert(userAlert); 
+      }
+    } catch (error) {
+      console.error(`Error during ${action.toLowerCase()} fetch:`, error);
+      alert('Network error. Could not connect to the service.');
+    }
+  }
+
+  // --- WRAPPER FUNCTIONS (matching the requested style) ---
+  const handleLogin = (e) => {
+    e.preventDefault(); 
+    // Call the consolidated function for login
+    handleAuth('PUT'); 
+  };
+
+  const handleRegister = () => {
+    // Call the consolidated function for registration
+    handleAuth('POST');
   };
 
   return (
@@ -27,18 +75,45 @@ export default function Login() {
 
       {/* --- MAIN CONTENT --- */}
       <main className="bg-dark text-red text-center py-4">
-        <h1>Login</h1>
-        <form className="login-form mx-auto" style={{maxWidth: "400px"}} onSubmit={handleMockLogin}>
+        <h1>Account Access</h1>
+        <form className="login-form mx-auto" style={{maxWidth: "400px"}} onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="username" className="form-label text-light">Username</label>
-            <input type="text" className="form-control" id="username" name="username" placeholder="Enter any username" />
+            <input 
+              type="text" 
+              className="form-control" 
+              id="username" 
+              name="username" 
+              placeholder="Enter username" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label text-light">Password</label>
-            <input type="password" className="form-control" id="password" name="password" placeholder="Enter any password" />
+            <input 
+              type="password" 
+              className="form-control" 
+              id="password" 
+              name="password" 
+              placeholder="Enter password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
-          <button type="submit" className="btn btn-danger w-100">
+          {/* Use onClick and rely on the form onSubmit handler calling handleLogin */}
+          <button type="submit" className="btn btn-danger w-100 mb-3" disabled={!(username && password)}>
             Login
+          </button>
+          
+          {/* Use onClick and prevent default form submission */}
+          <button 
+            type="button" 
+            className="btn btn-outline-danger w-100" 
+            onClick={handleRegister}
+            disabled={!(username && password)}
+          >
+            Register New Account
           </button>
         </form>
       </main>
