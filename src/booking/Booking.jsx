@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react'; // ADDED useState
 import { NavLink, useNavigate } from 'react-router-dom';
 import './booking.css';
-import { usePackage } from '../context/PackageContext'; // Import the hook
+import { usePackage } from '../context/PackageContext';
 
-// A helper component to render the package receipt dynamically
 const PackageReceipt = () => {
   const { packageSpec } = usePackage(); // Get the package data from context
 
@@ -50,11 +49,18 @@ const PackageReceipt = () => {
 
 export default function Booking() {
   const navigate = useNavigate();
-  // Clear the package context when we leave the booking 
-  const { setPackageSpec } = usePackage(); 
+  // Get both packageSpec (for submission) and setPackageSpec (for clearing)
+  const { packageSpec, setPackageSpec } = usePackage(); 
 
+  // --- NEW: State for form inputs (Controlled Components) ---
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [street, setStreet] = useState('');
+  const [comments, setComments] = useState('');
+
+  // --- EXISTING: Calendly useEffect ---
   useEffect(() => {
-    // --- RESTORED ---
     if (!window.Calendly) {
       const script = document.createElement('script');
       script.src = "https://assets.calendly.com/assets/external/widget.js";
@@ -66,7 +72,7 @@ export default function Booking() {
     }
   }, []);
   
-  // New Logout Function
+  // --- EXISTING: Logout Function ---
   async function handleLogout() {
     try {
       const response = await fetch('/api/auth/logout', {
@@ -90,6 +96,50 @@ export default function Booking() {
       // In case of network error, clear client state and navigate anyway
       setPackageSpec(null); 
       navigate('/'); 
+    }
+  }
+
+  // Handle Booking Submission
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    if (!packageSpec) {
+      alert('Error: Please select a package before submitting a booking.');
+      return;
+    }
+
+    const bookingData = {
+      // Package details from context
+      package: packageSpec,
+      // Customer details from form
+      customer: { name, phone, email, street, comments },
+    };
+
+    try {
+      // Call the restricted endpoint /api/booking
+      const response = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(bookingData),
+      });
+
+      if (response.ok) {
+        console.log('Booking submission successful.');
+        alert('Booking confirmed! We will contact you soon.');
+        setPackageSpec(null); // Clear context on successful booking
+        navigate('/'); // Go back to home page
+      } else if (response.status === 401) {
+        alert('Your session has expired. Please log in again.');
+        navigate('/login');
+      } 
+      else {
+        const errorText = await response.text();
+        console.error('Booking failed on server:', errorText);
+        alert(`Booking failed. Please try again. Server response: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Network error during booking fetch:', error);
+      alert('Network error. Could not connect to the service.');
     }
   }
 
@@ -129,30 +179,69 @@ export default function Booking() {
         {/* Package Receipt */}
         <PackageReceipt />
         
-        {/* --- RESTORED FORM --- */}
-        <form className="booking-form mx-auto" style={{ maxWidth: "400px" }}>
+        {/* --- MODIFIED FORM (added onSubmit and controlled inputs) --- */}
+        <form className="booking-form mx-auto" style={{ maxWidth: "400px" }} onSubmit={handleFormSubmit}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label text-light">Name:</label>
-            <input type="text" className="form-control" id="name" name="name" required />
+            <input 
+              type="text" 
+              className="form-control" 
+              id="name" 
+              name="name" 
+              required
+              value={name} // Control
+              onChange={(e) => setName(e.target.value)} // Update state
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="phone" className="form-label text-light">Phone Number:</label>
-            <input type="tel" className="form-control" id="phone" name="phone" required />
+            <input 
+              type="tel" 
+              className="form-control" 
+              id="phone" 
+              name="phone" 
+              required 
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="email" className="form-label text-light">Email:</label>
-            <input type="email" className="form-control" id="email" name="email" required />
+            <input 
+              type="email" 
+              className="form-control" 
+              id="email" 
+              name="email" 
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="street" className="form-label text-light">Street Address:</label>
-            <input type="text" className="form-control" id="street" name="street" required />
+            <input 
+              type="text" 
+              className="form-control" 
+              id="street" 
+              name="street" 
+              required
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="comments" className="form-label text-light">Comments:</label>
-            <input type="text" className="form-control" id="comments" name="comments" />
+            <input 
+              type="text" 
+              className="form-control" 
+              id="comments" 
+              name="comments"
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+            />
           </div>
           <button type="submit" className="btn btn-danger w-100">
-            PlaceHolder for Package submission with websocket
+            Submit Booking
           </button>
         </form>
       </main>

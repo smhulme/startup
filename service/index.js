@@ -47,8 +47,8 @@ apiRouter.post('/auth/login', async (req, res) => {
   const user = await findUser('username', username);
 
   if (user) {
-    // For the mock, we just check if the user exists.
-    if (password) { // Simple check to ensure password field is present
+    // Check if the password matches the stored password
+    if (user.password === password) {
       user.token = uuid.v4(); // Generate new token
       setAuthCookie(res, user.token);
       res.send({ username: user.username });
@@ -68,6 +68,19 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   res.clearCookie(authCookieName);
   res.status(204).end();
 });
+
+// --- MIDDLEWARE & HELPER FUNCTIONS ---
+
+// Middleware to verify that the user is authorized to call an endpoint
+const verifyAuth = async (req, res, next) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  if (user) {
+    req.user = user; // Attach user data to request
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+};
 
 // --- API ROUTES: APPLICATION DATA ---
 
@@ -90,18 +103,7 @@ apiRouter.post('/booking', verifyAuth, (req, res) => {
   res.status(201).send({ msg: 'Booking confirmed (MOCK)', bookingId: uuid.v4() });
 });
 
-// --- MIDDLEWARE & FALLBACK ---
-
-// Middleware to verify that the user is authorized to call an endpoint
-const verifyAuth = async (req, res, next) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
-  if (user) {
-    req.user = user; // Attach user data to request
-    next();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
-};
+// --- FALLBACK & ERROR HANDLERS ---
 
 // Default error handler
 app.use(function (err, req, res, next) {
@@ -149,5 +151,5 @@ function setAuthCookie(res, authToken) {
 // --- SERVER INITIALIZATION ---
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port} (MOCK SERVICE MODE)`);
+  console.log(`Listening on port ${port}`);
 });
