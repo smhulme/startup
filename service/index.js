@@ -69,8 +69,6 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   res.status(204).end();
 });
 
-// --- MIDDLEWARE & HELPER FUNCTIONS ---
-
 // Middleware to verify that the user is authorized to call an endpoint
 const verifyAuth = async (req, res, next) => {
   const user = await findUser('token', req.cookies[authCookieName]);
@@ -81,8 +79,6 @@ const verifyAuth = async (req, res, next) => {
     res.status(401).send({ msg: 'Unauthorized' });
   }
 };
-
-// --- API ROUTES: APPLICATION DATA ---
 
 // GET /api/user/me: Get current authenticated user details
 apiRouter.get('/user/me', verifyAuth, (req, res) => {
@@ -103,7 +99,7 @@ apiRouter.post('/booking', verifyAuth, (req, res) => {
   res.status(201).send({ msg: 'Booking confirmed (MOCK)', bookingId: uuid.v4() });
 });
 
-// --- FALLBACK & ERROR HANDLERS ---
+// FALLBACK & ERROR HANDLERS 
 
 // Default error handler
 app.use(function (err, req, res, next) {
@@ -129,9 +125,8 @@ async function createUser(username, password) {
   return user;
 }
 
-/**
- * Finds a user by a given field (e.g., 'username' or 'token').
- */
+// Finds a user by a given field (e.g., 'username' or 'token').
+
 async function findUser(field, value) {
   if (!value) return null;
 
@@ -147,8 +142,6 @@ function setAuthCookie(res, authToken) {
     sameSite: 'strict',
   });
 }
-
-// --- SERVER INITIALIZATION ---
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

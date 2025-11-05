@@ -52,14 +52,14 @@ export default function Booking() {
   // Get both packageSpec (for submission) and setPackageSpec (for clearing)
   const { packageSpec, setPackageSpec } = usePackage(); 
 
-  // --- NEW: State for form inputs (Controlled Components) ---
+  // State for form inputs (Controlled Components)
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [street, setStreet] = useState('');
   const [comments, setComments] = useState('');
 
-  // --- EXISTING: Calendly useEffect ---
+  // Calendly useEffect 
   useEffect(() => {
     if (!window.Calendly) {
       const script = document.createElement('script');
@@ -72,11 +72,11 @@ export default function Booking() {
     }
   }, []);
   
-  // --- EXISTING: Logout Function ---
+  // Logout Function 
   async function handleLogout() {
     try {
       const response = await fetch('/api/auth/logout', {
-        method: 'DELETE', // Logout typically uses a DELETE request
+        method: 'DELETE', // Logout typically DELETE request
       });
 
       if (response.ok) {
@@ -86,8 +86,7 @@ export default function Booking() {
       } else {
         const errorText = await response.text();
         console.error('Logout failed on server:', errorText);
-        // Even if the server returns an error (e.g., token expired), 
-        // we usually log the user out on the client side for safety.
+        // Even if the server returns an error (token expired), 
         setPackageSpec(null);
         navigate('/');
       }
@@ -146,12 +145,11 @@ export default function Booking() {
 
   return (
     <>
-      {/* --- RESTORED HEADER --- */}
       <header className="bg-black position-relative">
         <NavLink to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{ maxWidth: "150px" }} />
         </NavLink>
-        {/* Logout button in top right, now using the handleLogout function */}
+        {/* Logout button in top right, using the handleLogout function  */}
         <button
           className="text-red mx-2 text-decoration-none logout-btn"
           style={{ top: 20, right: 20, position: "absolute" }}
@@ -166,7 +164,6 @@ export default function Booking() {
         </nav>
       </header>
 
-      {/* --- RESTORED MAIN CONTENT --- */}
       <main className="bg-dark text-red py-4 text-center">
         <h1>Booking</h1>
         {/* Calendly inline widget */}
@@ -179,7 +176,7 @@ export default function Booking() {
         {/* Package Receipt */}
         <PackageReceipt />
         
-        {/* --- MODIFIED FORM (added onSubmit and controlled inputs) --- */}
+        {/* added onSubmit and controlled inputs */}
         <form className="booking-form mx-auto" style={{ maxWidth: "400px" }} onSubmit={handleFormSubmit}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label text-light">Name:</label>
@@ -246,7 +243,6 @@ export default function Booking() {
         </form>
       </main>
 
-      {/* --- RESTORED FOOTER --- */}
       <footer className="bg-black text-red py-3 text-center">
         © 2025 Red Sound. All rights reserved.
       </footer>

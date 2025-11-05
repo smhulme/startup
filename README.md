@@ -102,12 +102,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - Used Express to create backend server and routed login, logout, and booking
+- [x] **Static middleware for frontend** - used middleware for JSON parsing
+- [x] **Calls to third party endpoints** - I used third pardy calendly api to implement booking using a calendar.
+- [x] **Backend service endpoints** - Implemented routes such as /api/auth/login to link the service and frontedn together
+- [x] **Frontend calls service endpoints** - I used fetch to call backend endpoints and managed things such as auth state in the frontend
+- [x] **Supports registration, login, logout, and restricted endpoint** - Implemented mock tokens and all login features to prevent people who are not registered or have the wrong password from accessing the following page.
 
 
 ## 🚀 DB deliverable

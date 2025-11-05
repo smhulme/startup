@@ -163,3 +163,5 @@ APIs are easy to implement, but hard to create. All I need to do is include the 
 * **DNS Records**:
     * **A Record**: Points a domain name directly to an **IP address** (e.g., `192.168.1.1`).
     * **CNAME Record**: Points a domain name to *another domain name*.
+
+## Service
