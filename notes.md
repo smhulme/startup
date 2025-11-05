@@ -165,3 +165,10 @@ APIs are easy to implement, but hard to create. All I need to do is include the 
     * **CNAME Record**: Points a domain name to *another domain name*.
 
 ## Service
+- **Start Simple:** Begin with a basic Express server that just responds to a test route (e.g., `/api/hello`). Make sure your server runs before adding complexity.
+- **Middleware:** Use middleware like `express.json()` to parse JSON bodies if your frontend and backend are on different origins.
+- **Error Handling:** Always handle errors in your routes and return meaningful status codes (e.g., 400 for bad requests, 500 for server errors).
+- **Authentication:** Implement authentication for protected routes. Use middleware to check authentication before allowing access.
+- **Logging:** Use `console.log()` or a logging library to track requests and errors for easier debugging.
+- **Frontend Integration:** Use `fetch` in your React app to call your backend endpoints. Handle loading and error states in your UI.
+- **Third-Party APIs:** When calling third-party APIs (like Calendly), do so from the backend if you need to keep API keys secret, or from the frontend if it's a public integration.
