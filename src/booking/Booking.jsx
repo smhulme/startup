@@ -107,9 +107,17 @@ export default function Booking() {
       return;
     }
 
+    // Allows for addons to be listed as what they are instead of just [object]
+    const packageReport = {
+      ...packageSpec,
+      addons: packageSpec.addons.map(addon =>
+        `${addon.name} (x${addon.quantity}): $${addon.price.toFixed(2)}`
+      )
+    };
+
     const bookingData = {
       // Package details from context
-      package: packageSpec,
+      package: packageReport,
       // Customer details from form
       customer: { name, phone, email, street, comments },
     };
