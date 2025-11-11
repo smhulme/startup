@@ -3,12 +3,9 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js'); // <-- Import the new database module
 
-// Mock Cookie
 const authCookieName = 'token';
-
-// Placeholder for DB users
-let users = [];
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -25,17 +22,14 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-
 // POST /api/auth/create: Register a new user
 apiRouter.post('/auth/create', async (req, res) => {
-  // NOTE: This assumes the frontend uses 'username' and 'password' in the request body
-  const { username, password } = req.body; 
+  const { username, password } = req.body;
 
-  if (await findUser('username', username)) {
+  if (await DB.getUser(username)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(username, password);
-
+    const user = await DB.createUser(username, password);
     setAuthCookie(res, user.token);
     res.send({ username: user.username });
   }
@@ -44,13 +38,16 @@ apiRouter.post('/auth/create', async (req, res) => {
 // POST /api/auth/login: Login an existing user
 apiRouter.post('/auth/login', async (req, res) => {
   const { username, password } = req.body;
-  const user = await findUser('username', username);
+  const user = await DB.getUser(username);
 
   if (user) {
-    // Check if the password matches the stored password
-    if (user.password === password) {
-      user.token = uuid.v4(); // Generate new token
-      setAuthCookie(res, user.token);
+    // Check if the password matches the stored hash
+    if (await bcrypt.compare(password, user.password)) {
+      // Generate and store a new token
+      const newToken = uuid.v4();
+      await DB.updateUserToken(user._id, newToken);
+
+      setAuthCookie(res, newToken);
       res.send({ username: user.username });
       return;
     }
@@ -60,10 +57,10 @@ apiRouter.post('/auth/login', async (req, res) => {
 
 // DELETE /api/auth/logout: Logout a user
 apiRouter.delete('/auth/logout', async (req, res) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
+  const user = await DB.getUserByToken(req.cookies[authCookieName]);
   if (user) {
-    // In a real database, clear the token in the user record
-    delete user.token; 
+    // Clear the token in the database
+    await DB.updateUserToken(user._id, null);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -71,7 +68,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 
 // Middleware to verify that the user is authorized to call an endpoint
 const verifyAuth = async (req, res, next) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
+  const user = await DB.getUserByToken(req.cookies[authCookieName]);
   if (user) {
     req.user = user; // Attach user data to request
     next();
@@ -87,19 +84,24 @@ apiRouter.get('/user/me', verifyAuth, (req, res) => {
 });
 
 // POST /api/booking: Submit a new booking
-apiRouter.post('/booking', verifyAuth, (req, res) => {
-  // MOCK: Logic for saving the booking goes here.
-  const bookingData = { 
-    ...req.body, 
-    bookedBy: req.user.username,
+apiRouter.post('/booking', verifyAuth, async (req, res) => {
+  const bookingData = {
+    ...req.body,
+    bookedBy: req.user.username, // Add the authenticated user
     timestamp: new Date()
   };
-  
-  console.log(`MOCK: New booking received from ${req.user.username}`, bookingData);
-  res.status(201).send({ msg: 'Booking confirmed (MOCK)', bookingId: uuid.v4() });
+
+  try {
+    const result = await DB.addBooking(bookingData);
+    console.log(`New booking saved with id ${result.insertedId}`);
+    res.status(201).send({ msg: 'Booking confirmed', bookingId: result.insertedId });
+  } catch (error) {
+    console.error('Failed to save booking:', error);
+    res.status(500).send({ msg: 'Failed to save booking' });
+  }
 });
 
-// FALLBACK & ERROR HANDLERS 
+// FALLBACK & ERROR HANDLERS
 
 // Default error handler
 app.use(function (err, req, res, next) {
@@ -110,28 +112,6 @@ app.use(function (err, req, res, next) {
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
-
-
-//  Creates and stores a mock user
-async function createUser(username, password) {
-  // NOTE: This mock does NOT hash the password.
-  const user = {
-    username: username,
-    password: password, // Store plaintext in mock (not for production!)
-    token: uuid.v4(),
-  };
-  users.push(user);
-
-  return user;
-}
-
-// Finds a user by a given field (e.g., 'username' or 'token').
-
-async function findUser(field, value) {
-  if (!value) return null;
-
-  return users.find((u) => u[field] === value);
-}
 
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
