@@ -172,3 +172,9 @@ APIs are easy to implement, but hard to create. All I need to do is include the 
 - **Logging:** Use `console.log()` or a logging library to track requests and errors for easier debugging.
 - **Frontend Integration:** Use `fetch` in your React app to call your backend endpoints. Handle loading and error states in your UI.
 - **Third-Party APIs:** When calling third-party APIs (like Calendly), do so from the backend if you need to keep API keys secret, or from the frontend if it's a public integration.
+
+
+## MongoDB
+
+- **Collections:** using collections allows me to separate different types of data like users and packageInfo
+- **Operations:** I can use operations like findOne, insertOne, and updateOne to change info in the database
