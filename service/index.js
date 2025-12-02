@@ -1,7 +1,11 @@
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
+require('dotenv').config();
 const uuid = require('uuid');
+const http = require('http');
+const { WebSocketServer } = require('ws');
+const emailService = require('./emailService.js');
 const app = express();
 const DB = require('./database.js'); // <-- Import the new database module
 
@@ -31,7 +35,7 @@ apiRouter.post('/auth/create', async (req, res) => {
   } else {
     const user = await DB.createUser(username, password);
     setAuthCookie(res, user.token);
-    res.send({ username: user.username });
+    res.send({ username: user.username, type: user.type });
   }
 });
 
@@ -47,8 +51,14 @@ apiRouter.post('/auth/login', async (req, res) => {
       const newToken = uuid.v4();
       await DB.updateUserToken(user._id, newToken);
 
+      // Auto-promote 'admin' user if type is missing or incorrect
+      if (user.username === 'admin' && user.type !== 'admin') {
+        await DB.updateUserType(user._id, 'admin');
+        user.type = 'admin';
+      }
+
       setAuthCookie(res, newToken);
-      res.send({ username: user.username });
+      res.send({ username: user.username, type: user.type });
       return;
     }
   }
@@ -101,6 +111,87 @@ apiRouter.post('/booking', verifyAuth, async (req, res) => {
   }
 });
 
+// GET /api/auth/ws-ticket: Generate a WebSocket ticket
+apiRouter.get('/auth/ws-ticket', verifyAuth, (req, res) => {
+  const ticket = uuid.v4();
+  wsTickets.set(ticket, { id: req.user._id, username: req.user.username, type: req.user.type });
+  setTimeout(() => wsTickets.delete(ticket), 30000);
+  res.send({ ticket });
+});
+
+// GET /api/admin/chats: Get all open chats (Admin only)
+apiRouter.get('/admin/chats', verifyAuth, async (req, res) => {
+  console.log('GET /api/admin/chats - User:', req.user.username, 'Type:', req.user.type);
+  if (req.user.type !== 'admin') {
+    console.log('Access denied: User is not admin');
+    res.status(403).send({ msg: 'Forbidden' });
+    return;
+  }
+  const chats = await DB.getOpenChats();
+  res.send(chats);
+});
+
+// GET /api/admin/chat/:chatId/messages: Get messages for a specific chat (Admin only)
+apiRouter.get('/admin/chat/:chatId/messages', verifyAuth, async (req, res) => {
+  if (req.user.type !== 'admin') {
+    res.status(403).send({ msg: 'Forbidden' });
+    return;
+  }
+  const messages = await DB.getChatMessages(req.params.chatId);
+  res.send(messages);
+});
+
+// WebSocket server setup
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
+const activeConnections = new Map();
+const wsTickets = new Map();
+
+wss.on('connection', (ws) => {
+  ws.on('message', async (messageBuffer) => {
+    const message = JSON.parse(messageBuffer.toString());
+    if (message.type === 'auth') {
+      const userMap = wsTickets.get(message.ticket);
+      if (userMap) {
+        wsTickets.delete(message.ticket);
+        ws.userId = userMap.id;
+        ws.username = userMap.username;
+        ws.isAdmin = userMap.type === 'admin';
+        activeConnections.set(userMap.id.toString(), ws);
+        ws.send(JSON.stringify({ type: 'auth_success' }));
+      }
+    }
+    if (message.type === 'user_message' && ws.userId) {
+      const { chat, isNew } = await DB.getOrCreateChat(ws.userId, ws.username);
+      await DB.addMessage(chat._id, ws.userId, 'user', message.content);
+      if (isNew) {
+        emailService.sendNewChatEmail('User'); // Replace with actual username
+      }
+      console.log('Broadcasting to admins. Active connections:', activeConnections.size);
+      activeConnections.forEach((clientWs) => {
+        if (clientWs.isAdmin) {
+          console.log('Sending new_message to admin');
+          clientWs.send(JSON.stringify({ type: 'new_message', content: message.content, senderRole: 'user', chatId: chat._id.toString() }));
+        }
+      });
+    }
+    if (message.type === 'admin_reply' && ws.isAdmin) {
+      const { targetChatId, targetUserId, content } = message;
+      await DB.addMessage(targetChatId, ws.userId, 'admin', content);
+      const targetWs = activeConnections.get(targetUserId);
+      if (targetWs) {
+        console.log(`Sending admin reply to user ${targetUserId}`);
+        targetWs.send(JSON.stringify({ type: 'new_message', content, senderRole: 'admin' }));
+      } else {
+        console.log(`User ${targetUserId} not found in active connections`);
+      }
+    }
+  });
+  ws.on('close', () => {
+    if (ws.userId) activeConnections.delete(ws.userId.toString());
+  });
+});
+
 // FALLBACK & ERROR HANDLERS
 
 // Default error handler
@@ -123,6 +214,6 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
