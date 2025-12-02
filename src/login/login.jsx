@@ -16,8 +16,8 @@ export default function Login() {
     const endpoint = '/api/auth/' + (method === 'POST' ? 'create' : 'login');
     const action = method === 'POST' ? 'Registration' : 'Login';
     const successMessage = method === 'POST'
-        ? `Welcome, ${username}! You are now registered and logged in.`
-        : 'Login successful!';
+      ? `Welcome, ${username}! You are now registered and logged in.`
+      : 'Login successful!';
 
     try {
       const response = await fetch(endpoint, {
@@ -27,19 +27,24 @@ export default function Login() {
       });
 
       if (response.ok) {
+        const user = await response.json();
         console.log(successMessage);
         alert(successMessage);
-        navigate('/booking'); 
+        if (user.type === 'admin') {
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/booking');
+        }
       } else {
         const errorText = await response.text();
         console.error(`${action} failed:`, errorText);
         let userAlert = `${action} failed.`;
         if (method === 'POST') {
-            userAlert += ' Username may already be taken or password invalid.';
+          userAlert += ' Username may already be taken or password invalid.';
         } else {
-            userAlert += ' Please check your username and password.';
+          userAlert += ' Please check your username and password.';
         }
-        alert(userAlert); 
+        alert(userAlert);
       }
     } catch (error) {
       console.error(`Error during ${action.toLowerCase()} fetch:`, error);
@@ -49,9 +54,9 @@ export default function Login() {
 
   // --- WRAPPER FUNCTIONS (matching the requested style) ---
   const handleLogin = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     // Call the consolidated function for login
-    handleAuth('PUT'); 
+    handleAuth('PUT');
   };
 
   const handleRegister = () => {
@@ -64,7 +69,7 @@ export default function Login() {
       {/* --- RESTORED HEADER --- */}
       <header className="bg-black">
         <NavLink to="/">
-          <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{maxWidth: "150px"}} />
+          <img src="/Logo2-1.png" alt="Red Sound" className="img-fluid mx-auto d-block" style={{ maxWidth: "150px" }} />
         </NavLink>
         <nav className="text-center">
           <NavLink to="/premium" className="text-red mx-2 text-decoration-none">Premium</NavLink>
@@ -76,27 +81,27 @@ export default function Login() {
       {/* --- MAIN CONTENT --- */}
       <main className="bg-dark text-red text-center py-4">
         <h1>Account Access</h1>
-        <form className="login-form mx-auto" style={{maxWidth: "400px"}} onSubmit={handleLogin}>
+        <form className="login-form mx-auto" style={{ maxWidth: "400px" }} onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="username" className="form-label text-light">Username</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              id="username" 
-              name="username" 
-              placeholder="Enter username" 
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              name="username"
+              placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label text-light">Password</label>
-            <input 
-              type="password" 
-              className="form-control" 
-              id="password" 
-              name="password" 
-              placeholder="Enter password" 
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -105,11 +110,11 @@ export default function Login() {
           <button type="submit" className="btn btn-danger w-100 mb-3" disabled={!(username && password)}>
             Login
           </button>
-          
+
           {/* Use onClick and prevent default form submission */}
-          <button 
-            type="button" 
-            className="btn btn-outline-danger w-100" 
+          <button
+            type="button"
+            className="btn btn-outline-danger w-100"
             onClick={handleRegister}
             disabled={!(username && password)}
           >

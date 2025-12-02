@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'; // ADDED useState
 import { NavLink, useNavigate } from 'react-router-dom';
 import './booking.css';
 import { usePackage } from '../context/PackageContext';
+import ChatWidget from '../chat/ChatWidget';
 
 const PackageReceipt = () => {
   const { packageSpec } = usePackage(); // Get the package data from context
@@ -249,6 +250,7 @@ export default function Booking() {
             Submit Booking
           </button>
         </form>
+        <ChatWidget />
       </main>
 
       <footer className="bg-black text-red py-3 text-center">
