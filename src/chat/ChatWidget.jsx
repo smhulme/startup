@@ -36,6 +36,16 @@ export default function ChatWidget() {
     return () => { if (ws.current) ws.current.close(); };
   }, [isOpen]);
 
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const handleSend = (e) => {
     e.preventDefault();
     if (currentMessage && ws.current && isConnected) {
@@ -65,6 +75,7 @@ export default function ChatWidget() {
             <p>{msg.content}</p>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <form className="chat-input" onSubmit={handleSend}>
         <input
