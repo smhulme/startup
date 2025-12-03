@@ -106,3 +106,15 @@
   color: white;
   cursor: pointer;
 }
+
+.chat-system-message {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  border-bottom: 1px solid #444;
+  font-size: 0.9em;
+  color: #aaa;
+  font-style: italic;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}

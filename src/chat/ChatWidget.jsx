@@ -70,6 +70,11 @@ export default function ChatWidget() {
         <button onClick={() => setIsOpen(false)}>&times;</button>
       </div>
       <div className="chat-messages">
+        {!messages.some(m => m.senderRole === 'admin') && (
+          <div className="chat-system-message">
+            <p>Please type your first message, then wait for an agent to join...</p>
+          </div>
+        )}
         {messages.map((msg, idx) => (
           <div key={idx} className={`chat-message ${msg.senderRole}`}>
             <p>{msg.content}</p>
