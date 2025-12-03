@@ -178,3 +178,7 @@ APIs are easy to implement, but hard to create. All I need to do is include the 
 
 - **Collections:** using collections allows me to separate different types of data like users and packageInfo
 - **Operations:** I can use operations like findOne, insertOne, and updateOne to change info in the database
+
+## Websocket
+
+ - **Cookies** though not specifically related to websocket, something that i realized during this project is that cookies are very important to pay attention to. I found out during the last deliverable that I spent a lot of time debugging my code for a problem that just required using two different browsers for each login
