@@ -164,8 +164,15 @@ wss.on('connection', (ws) => {
     if (message.type === 'user_message' && ws.userId) {
       const { chat, isNew } = await DB.getOrCreateChat(ws.userId, ws.username);
       await DB.addMessage(chat._id, ws.userId, 'user', message.content);
-      if (isNew) {
+      // Smart email notification: Send if first message OR if > 10 minutes since last email
+      const lastEmail = chat.lastEmailSentAt ? new Date(chat.lastEmailSentAt) : null;
+      const now = new Date();
+      const tenMinutes = 10 * 60 * 1000;
+
+      if (!lastEmail || (now - lastEmail > tenMinutes)) {
         emailService.sendNewChatEmail('User'); // Replace with actual username
+        await DB.updateChatEmailTimestamp(chat._id);
+        console.log('Sent new chat email notification');
       }
       console.log('Broadcasting to admins. Active connections:', activeConnections.size);
       activeConnections.forEach((clientWs) => {

@@ -110,6 +110,13 @@ async function getChatMessages(chatId) {
   return messagesCollection.find({ chatId: new ObjectId(chatId) }).sort({ timestamp: 1 }).toArray();
 }
 
+async function updateChatEmailTimestamp(chatId) {
+  await chatsCollection.updateOne(
+    { _id: new ObjectId(chatId) },
+    { $set: { lastEmailSentAt: new Date() } }
+  );
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -121,4 +128,5 @@ module.exports = {
   getOrCreateChat,
   addMessage,
   getChatMessages,
+  updateChatEmailTimestamp,
 };
