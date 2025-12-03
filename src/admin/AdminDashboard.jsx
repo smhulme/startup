@@ -144,7 +144,7 @@ export default function AdminDashboard() {
         <div className="col-md-8">
           {selectedChat ? (
             <>
-              <h3>Chat with User {selectedChat.userId}</h3>
+              <h3>Chat with User {selectedChat.username || selectedChat.userId}</h3>
               <div className="chat-box bg-secondary p-3 mb-3" style={{ height: '400px', overflowY: 'scroll' }}>
                 {messages.map((msg, index) => (
                   <div key={index} className={`mb-2 ${msg.senderRole === 'admin' ? 'text-end' : 'text-start'}`}>
